@@ -6,13 +6,22 @@ def display_menu():
     print("3. View List")
     print("4. Exit")
 
+def display_item_choices(items):
+    print("\nAvailable Items to Add:")
+    for index, item in enumerate(items, start=1):
+        print(f"{index}. {item}")
+
 def main():
     shopping_list = []
+    available_items = [
+        "Milk", "Bread", "Eggs", "Rice", "Sugar", "Salt",
+        "Butter", "Apples", "Bananas", "Tomatoes", "Onions", "Chicken"
+    ]
+
     while True:
         display_menu()
         choice = input("Enter your choice (1-4): ").strip()
 
-        # Check if input is a digit
         if not choice.isdigit():
             print("Invalid input. Please enter a number between 1 and 4.")
             continue
@@ -20,13 +29,22 @@ def main():
         choice = int(choice)
 
         if choice == 1:
-            # ✅ ADD ITEM FUNCTIONALITY
-            item = input("Enter the item to add: ").strip()
-            if item:
-                shopping_list.append(item)
-                print(f"'{item}' has been added to the shopping list.")
+            # ✅ ADD ITEM FROM A PREDEFINED LIST
+            display_item_choices(available_items)
+            item_choice = input("Enter the number of the item to add: ").strip()
+
+            if not item_choice.isdigit():
+                print("Invalid input. Please enter a valid number.")
+                continue
+
+            item_index = int(item_choice) - 1
+
+            if 0 <= item_index < len(available_items):
+                item_to_add = available_items[item_index]
+                shopping_list.append(item_to_add)
+                print(f"'{item_to_add}' has been added to the shopping list.")
             else:
-                print("No item entered. Please try again.")
+                print("Invalid item number. Please try again.")
 
         elif choice == 2:
             item = input("Enter the item to remove: ").strip()
