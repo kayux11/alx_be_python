@@ -1,7 +1,4 @@
-# library_system.py
-
 class Book:
-    """Base class for all types of books."""
     def __init__(self, title, author):
         self.title = title
         self.author = author
@@ -11,7 +8,6 @@ class Book:
 
 
 class EBook(Book):
-    """Represents an electronic book."""
     def __init__(self, title, author, file_size):
         super().__init__(title, author)
         self.file_size = file_size  # in KB
@@ -21,7 +17,6 @@ class EBook(Book):
 
 
 class PrintBook(Book):
-    """Represents a printed book."""
     def __init__(self, title, author, page_count):
         super().__init__(title, author)
         self.page_count = page_count
@@ -31,12 +26,14 @@ class PrintBook(Book):
 
 
 class Library:
-    """Library class to manage a collection of books."""
     def __init__(self):
         self.books = []
 
     def add_book(self, book):
-        self.books.append(book)
+        if isinstance(book, Book):
+            self.books.append(book)
+        else:
+            print("Only instances of Book or its subclasses can be added.")
 
     def list_books(self):
         for book in self.books:
